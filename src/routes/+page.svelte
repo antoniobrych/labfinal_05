@@ -22,3 +22,29 @@
   <Project data={p} hLevel="3"/>
 {/each}
 </div>
+<p>Hello Wordl ! Wellcome to my site
+My name is Antonio, I am a Data Science student</p>
+
+{#await fetch("https://api.github.com/users/antoniobrych")}
+  <p>Loading...</p>
+{:then response}
+  {#await response.json()}
+    <p>Decoding...</p>
+  {:then data} 
+    <section>
+      <h2>My Github Stats</h2>
+      <dl>
+        <dt>Followers</dt>
+        <dd>{data.followers}</dd>
+        <dt>Following</dt>
+        <dd>{data.following}</dd>
+        <dt>Public Repos</dt>
+        <dd>{data.public_repos}</dd>
+      </dl>
+    </section>
+  {:catch error}
+    <p class="error">Something went wrong: {error.message}</p>
+  {/await}
+  {:catch error}
+    <p class="error">Something went wrong: {error.message}</p>
+{/await}
